@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUALOOP | Sistema Modular de Recuperación Doméstica de Agua</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aqualoop: {
+                            bg: '#F8FAFC',
+                            card: '#FFFFFF',
+                            petroleum: '#0F2537',
+                            water: '#0EA5E9',
+                            waterLight: '#E0F2FE',
+                            graphite: '#334155',
+                            accentGreen: '#475569',
+                            border: '#E2E8F0',
+                            sage: '#E2E8F0'
+                        }
+                    },
+                    fontFamily: {
+                        title: ['Space Grotesk', 'sans-serif'],
+                        body: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #F8FAFC;
+            color: #334155;
+        }
+        h1, h2, h3, .font-title {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .tech-grid-bg {
+            background-image: radial-gradient(#0EA5E9 0.75px, transparent 0.75px);
+            background-size: 24px 24px;
+            opacity: 0.15;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-aqualoop-waterLight selection:text-aqualoop-petroleum">
+
+    <!-- 1. HEADER / NAVEGACIÓN -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 glass-card border-b border-aqualoop-border/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-aqualoop-petroleum text-white flex items-center justify-center font-bold text-xl shadow-md group-hover:bg-aqualoop-water transition-colors">
+                    <svg class="w-6 h-6 text-sky-400 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>
+                        <path d="M12 18a3 3 0 0 0 3-3" stroke-dasharray="2 2"/>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-title text-xl font-bold tracking-wider text-aqualoop-petroleum leading-none">AQUALOOP</span>
+                    <span class="text-[10px] tracking-widest text-slate-400 font-medium uppercase mt-0.5">Industrial Design</span>
+                </div>
+            </a>
+
+            <!-- Nav Desktop -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-aqualoop-graphite">
+                <a href="#producto" class="hover:text-aqualoop-water transition-colors">Producto</a>
+                <a href="#problematica" class="hover:text-aqualoop-water transition-colors">Problemática</a>
+                <a href="#funcionamiento" class="hover:text-aqualoop-water transition-colors">Funcionamiento</a>
+                <a href="#componentes" class="hover:text-aqualoop-water transition-colors">Componentes</a>
+                <a href="#instalacion" class="hover:text-aqualoop-water transition-colors">Instalación</a>
+                <a href="#materiales" class="hover:text-aqualoop-water transition-colors">Materiales</a>
+                <a href="#beneficios" class="hover:text-aqualoop-water transition-colors">Beneficios</a>
+            </nav>
+
+            <!-- CTA Button Header -->
+            <div class="hidden sm:flex items-center gap-4">
+                <a href="#funcionamiento" class="bg-aqualoop-petroleum hover:bg-aqualoop-water text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300 shadow-sm hover:shadow-md flex items-center gap-2">
+                    <span>Conoce el sistema</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-aqualoop-petroleum hover:bg-slate-100 focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#producto" class="block py-2 text-slate-700 font-medium">Producto</a>
+            <a href="#problematica" class="block py-2 text-slate-700 font-medium">Problemática</a>
+            <a href="#funcionamiento" class="block py-2 text-slate-700 font-medium">Funcionamiento</a>
+            <a href="#componentes" class="block py-2 text-slate-700 font-medium">Componentes</a>
+            <a href="#instalacion" class="block py-2 text-slate-700 font-medium">Instalación</a>
+            <a href="#materiales" class="block py-2 text-slate-700 font-medium">Materiales</a>
+            <a href="#beneficios" class="block py-2 text-slate-700 font-medium">Beneficios</a>
+            <a href="#funcionamiento" class="block text-center bg-aqualoop-petroleum text-white font-semibold py-3 rounded-xl mt-4">Conoce el sistema</a>
+        </div>
+    </header>
+
+    <!-- 2. HERO PRINCIPAL -->
+    <section id="producto" class="pt-32 pb-20 lg:pt-40 lg:pb-32 relative overflow-hidden">
+        <div class="absolute inset-0 tech-grid-bg pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Text Column -->
+                <div class="lg:col-span-6 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-semibold uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
+                        Proyecto de Diseño Industrial Doméstico
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-aqualoop-petroleum leading-tight tracking-tight">
+                        Cada litro puede tener un <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-aqualoop-petroleum">segundo uso.</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl text-slate-600 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
+                        AQUALOOP recupera y almacena el agua limpia que normalmente se desperdicia mientras esperas a que tu regadera alcance la temperatura ideal.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#funcionamiento" class="w-full sm:w-auto text-center bg-aqualoop-petroleum hover:bg-aqualoop-water text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-sky-200 flex items-center justify-center gap-3 group">
+                            <span>Descubre cómo funciona</span>
+                            <i data-lucide="chevron-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                        </a>
+                        <a href="#componentes" class="w-full sm:w-auto text-center bg-white hover:bg-slate-50 text-aqualoop-petroleum border border-slate-300 font-semibold px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                            <span>Explorar componentes</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Quick specs badge -->
+                    <div class="pt-6 border-t border-slate-200 grid grid-cols-3 gap-4 text-center lg:text-left">
+                        <div>
+                            <span class="block font-title text-2xl font-bold text-aqualoop-petroleum">5 Litros</span>
+                            <span class="text-xs text-slate-500 font-medium">Por módulo individual</span>
+                        </div>
+                        <div>
+                            <span class="block font-title text-2xl font-bold text-aqualoop-petroleum">100%</span>
+                            <span class="text-xs text-slate-500 font-medium">Agua limpia recuperada</span>
+                        </div>
+                        <div>
+                            <span class="block font-title text-2xl font-bold text-aqualoop-petroleum">0 Tools</span>
+                            <span class="text-xs text-slate-500 font-medium">Uso diario sin esfuerzo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Render Placeholder Container -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative w-full rounded-2xl bg-gradient-to-br from-slate-100 to-sky-50 border border-slate-200/80 p-4 sm:p-6 shadow-2xl">
+                        <!-- Top status bar mock -->
+                        <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-200 text-xs font-mono text-slate-400">
+                            <span>RENDER 01 // VISTA GENERAL EN DUCHA</span>
+                            <span>MODULAR_SYSTEM_3x5L</span>
+                        </div>
+                        
+                        <!-- Main Product Render Placeholder -->
+                        <!-- REEMPLAZAR ESTE CONTENEDOR POR LA IMAGEN O RENDER REAL DE AQUALOOP -->
+                        <!-- Ejemplo: <img src="ruta/a/render-hero-aqualoop.jpg" alt="Render de AQUALOOP instalado en regadera" class="w-full h-auto rounded-xl shadow-inner"> -->
+                        <div class="relative w-full aspect-[4/3] rounded-xl bg-slate-200 overflow-hidden flex flex-col items-center justify-center text-slate-400 border border-dashed border-slate-300 group">
+                            <!-- Visual Graphic Simulation of Shower + AquaLoop -->
+                            <div class="absolute inset-0 bg-slate-900/5 backdrop-blur-[1px]"></div>
+                            
+                            <!-- SVG Product Illustration mockup -->
+                            <svg class="w-full h-full p-8 text-sky-600 opacity-90" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Shower Head -->
+                                <path d="M 200 20 L 200 50 C 200 70 180 80 160 80 L 120 80" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M 110 70 L 130 90 M 110 90 L 130 70" stroke="#475569" stroke-width="3"/>
+                                <circle cx="120" cy="80" r="16" fill="#0F2537"/>
+                                
+                                <!-- Water Diversion Pipe -->
+                                <path d="M 180 50 L 260 50 L 260 110" stroke="#0EA5E9" stroke-width="3" stroke-dasharray="4 4"/>
+                                
+                                <!-- AquaLoop Modular Array Mock -->
+                                <g transform="translate(200, 110)">
+                                    <!-- Module 1 -->
+                                    <rect x="0" y="0" width="120" height="40" rx="8" fill="#FFFFFF" stroke="#0F2537" stroke-width="2"/>
+                                    <rect x="10" y="8" width="100" height="24" rx="4" fill="#E0F2FE"/>
+                                    <circle cx="105" cy="20" r="5" fill="#0EA5E9"/>
+                                    <text x="20" y="24" font-family="sans-serif" font-size="10" fill="#0F2537" font-weight="bold">MÓDULO A (5L)</text>
+                                    
+                                    <!-- Module 2 -->
+                                    <rect x="0" y="48" width="120" height="40" rx="8" fill="#FFFFFF" stroke="#0F2537" stroke-width="2"/>
+                                    <rect x="10" y="56" width="100" height="24" rx="4" fill="#BAE6FD"/>
+                                    <circle cx="105" cy="68" r="5" fill="#0EA5E9"/>
+                                    <text x="20" y="72" font-family="sans-serif" font-size="10" fill="#0F2537" font-weight="bold">MÓDULO B (5L)</text>
+
+                                    <!-- Module 3 -->
+                                    <rect x="0" y="96" width="120" height="40" rx="8" fill="#FFFFFF" stroke="#0F2537" stroke-width="2"/>
+                                    <rect x="10" y="104" width="70" height="24" rx="4" fill="#E0F2FE"/>
+                                    <circle cx="105" cy="116" r="5" fill="#94A3B8"/>
+                                    <text x="20" y="120" font-family="sans-serif" font-size="10" fill="#0F2537" font-weight="bold">MÓDULO C (Llenando)</text>
+
+                                    <!-- Handle details -->
+                                    <path d="M -10 10 L 0 10" stroke="#0F2537" stroke-width="3"/>
+                                    <path d="M -10 58 L 0 58" stroke="#0F2537" stroke-width="3"/>
+                                    <path d="M -10 106 L 0 106" stroke="#0F2537" stroke-width="3"/>
+                                    <line x1="-10" y1="10" x2="-10" y2="106" stroke="#0F2537" stroke-width="2"/>
+                                </g>
+                            </svg>
+
+                            <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur px-4 py-3 rounded-lg border border-slate-200 text-center shadow-sm">
+                                <p class="text-xs font-semibold text-aqualoop-petroleum uppercase tracking-wider">[ Espacio para Render 3D de AQUALOOP en Regadera ]</p>
+                                <p class="text-[11px] text-slate-500">Muestra el producto montado en pared de azulejo con acabado blanco mate y conectores cromados.</p>
+                            </div>
+                        </div>
+
+                        <!-- Technical Callouts -->
+                        <div class="mt-4 flex items-center justify-between text-xs text-slate-500 font-mono">
+                            <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-sky-500"></i> Montaje rápido</span>
+                            <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-sky-500"></i> Válvula termostática</span>
+                            <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-sky-500"></i> Asa ergonómica</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SECCIÓN: LA PROBLEMÁTICA -->
+    <section id="problematica" class="py-20 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold tracking-widest text-sky-600 uppercase">Contexto y Motivación</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-aqualoop-petroleum mt-2">Agua limpia que termina en el drenaje.</h2>
+                <p class="text-slate-600 mt-4 leading-relaxed">
+                    Antes de comenzar una ducha, existe un periodo de espera habitual mientras el agua alcanza la temperatura deseada. Durante este lapso de tiempo, litros de agua 100% potable que no ha sido utilizada se pierden directamente por la coladera.
+                </p>
+            </div>
+
+            <!-- Comparison Flow Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                <!-- Situation A: Desperdicio -->
+                <div class="p-8 rounded-2xl bg-rose-50/50 border border-rose-100 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-bold uppercase tracking-wider">Sin AQUALOOP</span>
+                            <i data-lucide="x-circle" class="w-6 h-6 text-rose-500"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">El ciclo convencional de desperdicio</h3>
+                        <p class="text-sm text-slate-600 mb-8">El comportamiento habitual genera una pérdida promedio de 8 a 15 litros por ducha en cada hogar.</p>
+                        
+                        <!-- Linear Process Graphic -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4 bg-white p-3.5 rounded-xl border border-rose-100 shadow-sm">
+                                <span class="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 font-bold flex items-center justify-center text-xs">01</span>
+                                <span class="text-sm font-semibold text-slate-700">Agua Potable</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 ml-auto text-slate-300"></i>
+                            </div>
+                            <div class="flex items-center gap-4 bg-white p-3.5 rounded-xl border border-rose-100 shadow-sm">
+                                <span class="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 font-bold flex items-center justify-center text-xs">02</span>
+                                <span class="text-sm font-semibold text-slate-700">Apertura de Regadera</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 ml-auto text-slate-300"></i>
+                            </div>
+                            <div class="flex items-center gap-4 bg-white p-3.5 rounded-xl border border-rose-100 shadow-sm">
+                                <span class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-xs">03</span>
+                                <span class="text-sm font-semibold text-amber-800">Espera de Temperatura (Agua Fría)</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 ml-auto text-slate-300"></i>
+                            </div>
+                            <div class="flex items-center gap-4 bg-rose-100/80 p-3.5 rounded-xl border border-rose-200">
+                                <span class="w-8 h-8 rounded-lg bg-rose-600 text-white font-bold flex items-center justify-center text-xs">04</span>
+                                <span class="text-sm font-bold text-rose-900">Pérdida Directa al Drenaje</span>
+                                <i data-lucide="trash-2" class="w-4 h-4 ml-auto text-rose-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-rose-200/60 text-xs text-rose-700 font-medium">
+                        Impacto: Hasta 3,600 litros de agua limpia desperdiciados al año por persona.
+                    </div>
+                </div>
+
+                <!-- Situation B: Oportunidad AQUALOOP -->
+                <div class="p-8 rounded-2xl bg-sky-50/60 border border-sky-100 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-bold uppercase tracking-wider">Con AQUALOOP</span>
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-sky-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-aqualoop-petroleum mb-2">La oportunidad planteada por AQUALOOP</h3>
+                        <p class="text-sm text-slate-600 mb-8">Captura el recurso en el punto de origen antes de que toque el piso de la ducha.</p>
+                        
+                        <!-- Linear Process Graphic -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4 bg-white p-3.5 rounded-xl border border-sky-100 shadow-sm">
+                                <span class="w-8 h-8 rounded-lg bg-sky-100 text-sky-800 font-bold flex items-center justify-center text-xs">01</span>
+                                <span class="text-sm font-semibold text-slate-700">Agua Potable Fría</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 ml-auto text-sky-400"></i>
+                            </div>
+                            <div class="flex items-center gap-4 bg-white p-3.5 rounded-xl border border-sky-100 shadow-sm">
+                                <span class="w-8 h-8 rounded-lg bg-sky-100 text-sky-800 font-bold flex items-center justify-center text-xs">02</span>
+                                <span class="text-sm font-semibold text-sky-900">Recuperación Directa por Desvío</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 ml-auto text-sky-400"></i>
+                            </div>
+                            <div class="flex items-center gap-4 bg-white p-3.5 rounded-xl border border-sky-100 shadow-sm">
+                                <span class="w-8 h-8 rounded-lg bg-sky-100 text-sky-800 font-bold flex items-center justify-center text-xs">03</span>
+                                <span class="text-sm font-semibold text-sky-900">Almacenamiento Modular Seguro</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4 ml-auto text-sky-400"></i>
+                            </div>
+                            <div class="flex items-center gap-4 bg-aqualoop-petroleum p-3.5 rounded-xl text-white shadow-md">
+                                <span class="w-8 h-8 rounded-lg bg-sky-500 text-white font-bold flex items-center justify-center text-xs">04</span>
+                                <span class="text-sm font-bold">Reutilización en Tareas Domésticas</span>
+                                <i data-lucide="refresh-cw" class="w-4 h-4 ml-auto text-sky-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-sky-200/60 text-xs text-sky-800 font-semibold">
+                        Solución: Aprovechamiento inmediato de agua limpia para descargas de WC, riego y aseo.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SECCIÓN: ¿QUÉ ES AQUALOOP? -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold tracking-widest text-sky-600 uppercase">Concepto de Diseño</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-aqualoop-petroleum mt-2">Un sistema intermedio, intuitivo y funcional.</h2>
+                <p class="text-slate-600 mt-4 leading-relaxed">
+                    AQUALOOP es un sistema modular de recuperación y almacenamiento doméstico de agua que elimina el desorden de las cubetas tradicionales sin requerir costosas obras hidráulicas.
+                </p>
+            </div>
+
+            <!-- 3 Core Pillars Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mb-6 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                        <i data-lucide="layers" class="w-7 h-7"></i>
+                    </div>
+                    <span class="text-xs font-bold text-sky-600 tracking-wider uppercase">01. Flexibilidad</span>
+                    <h3 class="text-2xl font-bold text-aqualoop-petroleum mt-1 mb-3">Modular</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        El usuario puede adaptar el sistema a la geometría de su baño conectando varios recipientes de aproximadamente 5 litros de capacidad según sus necesidades.
+                    </p>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs font-medium text-slate-400">
+                        <i data-lucide="plus-circle" class="w-4 h-4 text-sky-500"></i> Escalable de 1 a 6 depósitos
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mb-6 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                        <i data-lucide="move" class="w-7 h-7"></i>
+                    </div>
+                    <span class="text-xs font-bold text-sky-600 tracking-wider uppercase">02. Ergonómico</span>
+                    <h3 class="text-2xl font-bold text-aqualoop-petroleum mt-1 mb-3">Removible</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Cada módulo cuenta con su propio mecanismo de cierre hermético y agarradera. Se separa y transporta individualmente de forma cómoda y ligera (~5 kg).
+                    </p>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs font-medium text-slate-400">
+                        <i data-lucide="lock" class="w-4 h-4 text-sky-500"></i> Válvula antigoteo individual
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mb-6 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                        <i data-lucide="git-merge" class="w-7 h-7"></i>
+                    </div>
+                    <span class="text-xs font-bold text-sky-600 tracking-wider uppercase">03. Estético</span>
+                    <h3 class="text-2xl font-bold text-aqualoop-petroleum mt-1 mb-3">Integrado</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Se conecta directamente a la toma de la regadera. Recupera el agua limpiamente antes de que caiga al piso, manteniendo la higiene y la elegancia del baño.
+                    </p>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs font-medium text-slate-400">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-sky-500"></i> Sin acumulación de jabón
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SECCIÓN: ¿CÓMO FUNCIONA? -->
+    <section id="funcionamiento" class="py-24 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold tracking-widest text-sky-600 uppercase">Secuencia de Uso</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-aqualoop-petroleum mt-2">Diagrama de funcionamiento en 5 pasos</h2>
+                <p class="text-slate-600 mt-4">Un proceso intuitivo integrado perfectamente en la rutina diaria de baño.</p>
+            </div>
+
+            <!-- Steps Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
+                <!-- Step 1 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between relative">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-aqualoop-petroleum text-white font-title text-lg font-bold flex items-center justify-center mb-4">1</div>
+                        <h4 class="font-bold text-aqualoop-petroleum text-base mb-2">Apertura</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">El usuario abre la llave de la regadera como lo hace habitualmente.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-200/80 flex justify-center text-sky-500">
+                        <i data-lucide="shower-head" class="w-8 h-8"></i>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between relative">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-aqualoop-petroleum text-white font-title text-lg font-bold flex items-center justify-center mb-4">2</div>
+                        <h4 class="font-bold text-aqualoop-petroleum text-base mb-2">Desvío</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">El agua fría inicial se desvía automáticamente o por palanca hacia AQUALOOP.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-200/80 flex justify-center text-sky-500">
+                        <i data-lucide="split" class="w-8 h-8"></i>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between relative">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-aqualoop-petroleum text-white font-title text-lg font-bold flex items-center justify-center mb-4">3</div>
+                        <h4 class="font-bold text-aqualoop-petroleum text-base mb-2">Llenado</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">Los módulos conectados en serie se llenan de forma progresiva.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-200/80 flex justify-center text-sky-500">
+                        <i data-lucide="arrow-down-to-line" class="w-8 h-8"></i>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between relative">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-aqualoop-petroleum text-white font-title text-lg font-bold flex items-center justify-center mb-4">4</div>
+                        <h4 class="font-bold text-aqualoop-petroleum text-base mb-2">Conmutación</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">Al alcanzar la temperatura ideal, el flujo conmuta hacia la salida superior de la regadera.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-200/80 flex justify-center text-sky-500">
+                        <i data-lucide="thermometer-sun" class="w-8 h-8"></i>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="bg-sky-50/70 p-6 rounded-2xl border border-sky-200 flex flex-col justify-between relative">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-sky-600 text-white font-title text-lg font-bold flex items-center justify-center mb-4">5</div>
+                        <h4 class="font-bold text-aqualoop-petroleum text-base mb-2">Reuso</h4>
+                        <p class="text-xs text-slate-700 leading-relaxed">Los módulos llenos se cierran, se retiran y el agua se utiliza en actividades del hogar.</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-sky-200 flex justify-center text-sky-600">
+                        <i data-lucide="check-check" class="w-8 h-8"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. SECCIÓN: SISTEMA MODULAR -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-xs font-bold tracking-widest text-sky-600 uppercase">Configuración Escalable</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-aqualoop-petroleum">Capacidad adaptable a tu espacio.</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Cada depósito tiene una capacidad calculada de aproximadamente **5 Litros**, pensada para ser el equilibrio perfecto entre volumen de recuperación y peso maniobrable (~5 kg por módulo lleno).
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        Agrega o retira módulos según el tiempo de respuesta de tu calentador y la disponibilidad de espacio dentro del área de regadera.
+                    </p>
+
+                    <!-- Modules Capacity Counter List -->
+                    <div class="space-y-3 pt-2">
+                        <div class="flex items-center justify-between p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                            <span class="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-sky-400"></span> 3 Módulos
+                            </span>
+                            <span class="font-title font-bold text-aqualoop-petroleum">~ 15 Litros</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                            <span class="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-sky-500"></span> 4 Módulos
+                            </span>
+                            <span class="font-title font-bold text-aqualoop-petroleum">~ 20 Litros</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                            <span class="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-sky-600"></span> 5 Módulos
+                            </span>
+                            <span class="font-title font-bold text-aqualoop-petroleum">~ 25 Litros</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm">
+                            <span class="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-aqualoop-petroleum"></span> 6 Módulos
+                            </span>
+                            <span class="font-title font-bold text-aqualoop-petroleum">~ 30 Litros</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Visual Graphic of Accumulating Modules -->
+                <div class="lg:col-span-7 bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
+                        <span class="text-xs font-mono text-slate-400">ESQUEMA DE ACUMULACIÓN HORIZONTAL / VERTICAL</span>
+                        <span class="text-xs font-bold text-sky-600 bg-sky-50 px-3 py-1 rounded-full">1 Módulo = 5 kg cargados</span>
+                    </div>
+
+                    <!-- Diagram Visual -->
+                    <!-- REEMPLAZAR ESTE GRÁFICO POR UN RENDER 3D O FOTOGRAFÍA DE LA SERIE DE MÓDULOS -->
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-24 text-xs font-bold text-slate-500">3 Módulos</div>
+                            <div class="flex-1 bg-slate-100 h-10 rounded-xl p-1 flex gap-1.5">
+                                <div class="h-full w-1/3 bg-sky-400 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/3 bg-sky-400 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/3 bg-sky-400 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                            </div>
+                            <div class="text-sm font-bold text-slate-700 w-12 text-right">15L</div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="w-24 text-xs font-bold text-slate-500">4 Módulos</div>
+                            <div class="flex-1 bg-slate-100 h-10 rounded-xl p-1 flex gap-1.5">
+                                <div class="h-full w-1/4 bg-sky-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/4 bg-sky-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/4 bg-sky-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/4 bg-sky-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                            </div>
+                            <div class="text-sm font-bold text-slate-700 w-12 text-right">20L</div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="w-24 text-xs font-bold text-slate-500">5 Módulos</div>
+                            <div class="flex-1 bg-slate-100 h-10 rounded-xl p-1 flex gap-1.5">
+                                <div class="h-full w-1/5 bg-sky-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/5 bg-sky-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/5 bg-sky-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/5 bg-sky-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/5 bg-sky-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                            </div>
+                            <div class="text-sm font-bold text-slate-700 w-12 text-right">25L</div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="w-24 text-xs font-bold text-slate-500">6 Módulos</div>
+                            <div class="flex-1 bg-slate-100 h-10 rounded-xl p-1 flex gap-1.5">
+                                <div class="h-full w-1/6 bg-aqualoop-petroleum rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/6 bg-aqualoop-petroleum rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/6 bg-aqualoop-petroleum rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/6 bg-aqualoop-petroleum rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/6 bg-aqualoop-petroleum rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                                <div class="h-full w-1/6 bg-aqualoop-petroleum rounded-lg flex items-center justify-center text-white text-xs font-bold">5L</div>
+                            </div>
+                            <div class="text-sm font-bold text-slate-700 w-12 text-right">30L</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-sky-50/50 rounded-xl border border-sky-100 text-xs text-slate-600 flex items-center gap-3">
+                        <i data-lucide="info" class="w-5 h-5 text-sky-600 flex-shrink-0"></i>
+                        <span>El peso de 5 Litros (5 kg) ha sido seleccionado bajo criterios de ergonomía universal para permitir el levantamiento seguro en adultos y adultos mayores.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. SECCIÓN: COMPONENTES (EXPLODED VIEW / ESQUEMA TÉCNICO) -->
+    <section id="componentes" class="py-24 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold tracking-widest text-sky-600 uppercase">Anatomía del Producto</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-aqualoop-petroleum mt-2">Desglose de componentes e ingeniería</h2>
+                <p class="text-slate-600 mt-4">Diseñado minuciosamente para garantizar hermeticidad, durabilidad y facilidad de ensamblaje.</p>
+            </div>
+
+            <!-- Exploded View Layout Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Technical Schema Representation -->
+                <div class="lg:col-span-6 bg-slate-900 rounded-2xl p-8 text-white relative overflow-hidden">
+                    <div class="absolute top-4 left-4 text-[10px] font-mono text-slate-500 uppercase">ESQUEMA TÉCNICO // EXPLODED_VIEW_REV2</div>
+                    
+                    <!-- REEMPLAZAR ESTE VECTOR SVG POR UNA VISTA EXPLOSIONADA 3D REAL (EXPLODED VIEW) -->
+                    <!-- <img src="ruta/a/vista-explosionada-aqualoop.png" alt="Vista explosionada de componentes AQUALOOP"> -->
+                    <div class="py-12 flex flex-col items-center justify-center relative">
+                        <svg class="w-full h-80 text-sky-400" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Technical Grid overlay -->
+                            <path d="M0 50 H400 M0 100 H400 M0 150 H400 M0 200 H400 M0 250 H400" stroke="#1E293B" stroke-width="1"/>
+                            <path d="M50 0 V300 M100 0 V300 M150 0 V300 M200 0 V300 M250 0 V300 M300 0 V300 M350 0 V300" stroke="#1E293B" stroke-width="1"/>
+
+                            <!-- Exploded components -->
+                            <!-- Body -->
+                            <rect x="140" y="110" width="120" height="80" rx="12" stroke="#38BDF8" stroke-width="2" fill="#0F172A" fill-opacity="0.8"/>
+                            <text x="160" y="155" fill="#94A3B8" font-size="10" font-family="monospace">DEPÓSITO 5L</text>
+
+                            <!-- Handle Top -->
+                            <path d="M 160 110 L 160 80 Q 200 60 240 80 L 240 110" stroke="#38BDF8" stroke-width="2" stroke-dasharray="2 2"/>
+                            <text x="170" y="70" fill="#38BDF8" font-size="9" font-family="monospace">1. AGARRADERA</text>
+
+                            <!-- Valve Right -->
+                            <line x1="260" y1="150" x2="320" y2="150" stroke="#38BDF8" stroke-width="2"/>
+                            <circle cx="330" cy="150" r="12" stroke="#38BDF8" stroke-width="2" fill="#0F172A"/>
+                            <text x="310" y="180" fill="#38BDF8" font-size="9" font-family="monospace">2. VÁLVULA</text>
+
+                            <!-- Inlet Top -->
+                            <line x1="200" y1="110" x2="200" y2="30" stroke="#38BDF8" stroke-width="2"/>
+                            <circle cx="200" cy="20" r="8" stroke="#38BDF8" stroke-width="2"/>
+                            <text x="215" y="25" fill="#38BDF8" font-size="9" font-family="monospace">3. ENTRADA</text>
+
+                            <!-- Connector Left -->
+                            <line x1="140" y1="150" x2="80" y2="150" stroke="#38BDF8" stroke-width="2"/>
+                            <rect x="60" y="140" width="20" height="20" rx="4" stroke="#38BDF8" stroke-width="2"/>
+                            <text x="20" y="135" fill="#38BDF8" font-size="9" font-family="monospace">4. CONECTOR</text>
+                        </svg>
+
+                        <div class="mt-4 bg-slate-800/90 text-center px-4 py-2 rounded border border-slate-700 text-xs text-slate-300">
+                            [ Placeholder para Render de Vista Explosionada 3D ]
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Components Detail Grid -->
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="text-xs font-mono font-bold text-sky-600">01</span>
+                            <h4 class="font-bold text-aqualoop-petroleum text-sm mt-1">Depósito de agua (5 L)</h4>
+                            <p class="text-xs text-slate-600 mt-1">Cuerpo principal geométrico diseñado para optimizar espacio en muro.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="text-xs font-mono font-bold text-sky-600">02</span>
+                            <h4 class="font-bold text-aqualoop-petroleum text-sm mt-1">Entrada de agua</h4>
+                            <p class="text-xs text-slate-600 mt-1">Puerto superior con embudo interno direccionador.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="text-xs font-mono font-bold text-sky-600">03</span>
+                            <h4 class="font-bold text-aqualoop-petroleum text-sm mt-1">Salida / Conmutador</h4>
+                            <p class="text-xs text-slate-600 mt-1">Permite el paso continuo hacia el siguiente módulo consecutivamente.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="text-xs font-mono font-bold text-sky-600">04</span>
+                            <h4 class="font-bold text-aqualoop-petroleum text-sm mt-1">Conector entre módulos</h4>
+                            <p class="text-xs text-slate-600 mt-1">Acople rápido tipo "push-fit" con seguro de liberación.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="text-xs font-mono font-bold text-sky-600">05</span>
+                            <h4 class="font-bold text-aqualoop-petroleum text-sm mt-1">Mecanismo de cierre</h4>
+                            <p class="text-xs text-slate-600 mt-1">Sella automáticamente el módulo al momento de desengancharlo.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="text-xs font-mono font-bold text-sky-600">06</span>
+                            <h4 class="font-bold text-aqualoop-petroleum text-sm mt-1">Discos cerámicos</h4>
+                            <p class="text-xs text-slate-600 mt-1">Garantizan ciclo de vida prolongado sin desgaste por fricción.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="text-xs font-mono font-bold text-sky-600">07</span>
+                            <h4 class="font-bold text-aqualoop-petroleum text-sm mt-1">Empaques y sellos</h4>
+                            <p class="text-xs text-slate-600 mt-1">Anillos O-Ring de grado hidráulico para hermeticidad total.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="text-xs font-mono font-bold text-sky-600">08</span>
+                            <h4 class="font-bold text-aqualoop-petroleum text-sm mt-1">Agarradera integrada</h4>
+                            <p class="text-xs text-slate-600 mt-1">Diseño ergonómico moldeado al cuerpo para transporte seguro.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="text-xs font-mono font-bold text-sky-600">09</span>
+                            <h4 class="font-bold text-aqualoop-petroleum text-sm mt-1">Soporte de fijación</h4>
+                            <p class="text-xs text-slate-600 mt-1">Riel posterior de bajo perfil fijado a la pared por succión o taquetes.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                            <span class="text-xs font-mono font-bold text-sky-600">10</span>
+                            <h4 class="font-bold text-aqualoop-petroleum text-sm mt-1">Conexión a regadera</h4>
+                            <p class="text-xs text-slate-600 mt-1">Adaptador universal NPT 1/2" compatible con la mayoría de salidas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. SECCIÓN: MATERIALES -->
+    <section id="materiales" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold tracking-widest text-sky-600 uppercase">Criterios de Selección</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-aqualoop-petroleum mt-2">Materiales e ingeniería de procesos</h2>
+                <p class="text-slate-600 mt-4">Selección rigurosa de polímeros y metales de grado sanitario e industrial.</p>
+            </div>
+
+            <!-- Material Cards with texture references -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Material 1 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                    <div class="p-6">
+                        <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center font-bold font-title text-aqualoop-petroleum mb-4">
+                            PP
+                        </div>
+                        <h3 class="text-lg font-bold text-aqualoop-petroleum mb-1">Polipropileno / HDPE</h3>
+                        <span class="text-xs font-semibold text-sky-600 uppercase block mb-3">Cuerpo del Depósito</span>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Elegido por su alta resistencia al impacto, estabilidad térmica ante agua caliente, bajo peso y excelente reciclabilidad en procesos de moldeo por soplado.
+                        </p>
+                    </div>
+                    <div class="bg-slate-100 p-4 border-t border-slate-200/80 text-[11px] text-slate-500 font-mono">
+                        Aplicación: Estructura contenedora y asa
+                    </div>
+                </div>
+
+                <!-- Material 2 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                    <div class="p-6">
+                        <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center font-bold font-title mb-4">
+                            Cu
+                        </div>
+                        <h3 class="text-lg font-bold text-aqualoop-petroleum mb-1">Latón Maquinado</h3>
+                        <span class="text-xs font-semibold text-sky-600 uppercase block mb-3">Conexiones e Hidráulica</span>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Utilizado en los núcleos de conexión y roscas principales para garantizar la resistencia mecánica necesaria contra presiones y acoples repetidos.
+                        </p>
+                    </div>
+                    <div class="bg-slate-100 p-4 border-t border-slate-200/80 text-[11px] text-slate-500 font-mono">
+                        Aplicación: Válvula de desviación y roscas
+                    </div>
+                </div>
+
+                <!-- Material 3 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                    <div class="p-6">
+                        <div class="w-12 h-12 rounded-xl bg-slate-800 text-white flex items-center justify-center font-bold font-title mb-4">
+                            Al₂O₃
+                        </div>
+                        <h3 class="text-lg font-bold text-aqualoop-petroleum mb-1">Cerámica Técnica</h3>
+                        <span class="text-xs font-semibold text-sky-600 uppercase block mb-3">Discos Internos</span>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Integrada en los discos internos del sistema de apertura/cierre. Evita desgaste por fricción y previene filtraciones tras miles de ciclos de uso.
+                        </p>
+                    </div>
+                    <div class="bg-slate-100 p-4 border-t border-slate-200/80 text-[11px] text-slate-500 font-mono">
+                        Aplicación: Mecanismo interno de paso
+                    </div>
+                </div>
+
+                <!-- Material 4 -->
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                    <div class="p-6">
+                        <div class="w-12 h-12 rounded-xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center font-bold font-title mb-4">
+                            EPDM
+                        </div>
+                        <h3 class="text-lg font-bold text-aqualoop-petroleum mb-1">EPDM / Silicón</h3>
+                        <span class="text-xs font-semibold text-sky-600 uppercase block mb-3">Empaques y Sellos</span>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Polímeros elastómeros de grado sanitario altamente resistentes a la degradación por cloro y variaciones extremas de temperatura.
+                        </p>
+                    </div>
+                    <div class="bg-slate-100 p-4 border-t border-slate-200/80 text-[11px] text-slate-500 font-mono">
+                        Aplicación: Sellado hermético entre módulos
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. SECCIÓN: INSTALACIÓN -->
+    <section id="instalacion" class="py-24 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold tracking-widest text-sky-600 uppercase">Facilidad de Implementación</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-aqualoop-petroleum mt-2">Proceso de instalación sin plomería compleja</h2>
+                <p class="text-slate-600 mt-4">Diseñado para instalarse en menos de 20 minutos sin romper azulejos ni modificar tuberías internas.</p>
+            </div>
+
+            <!-- Installation Steps Timeline -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                <!-- Step 1 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-sky-600">PASO 01</span>
+                        <h3 class="font-bold text-aqualoop-petroleum text-base mt-2 mb-2">Conexión inicial</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">Enroscar la válvula desviadora de latón a la salida de agua de la regadera existente.</p>
+                    </div>
+                    <div class="mt-6 text-slate-400 font-mono text-[10px]">TIEMPO: ~5 MIN</div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-sky-600">PASO 02</span>
+                        <h3 class="font-bold text-aqualoop-petroleum text-base mt-2 mb-2">Fijación de soporte</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">Colocar el riel guía en el muro mediante adhesivo técnico o ventosas de alta presión.</p>
+                    </div>
+                    <div class="mt-6 text-slate-400 font-mono text-[10px]">TIEMPO: ~5 MIN</div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-sky-600">PASO 03</span>
+                        <h3 class="font-bold text-aqualoop-petroleum text-base mt-2 mb-2">Montaje de módulos</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">Deslizar los depósitos individuales sobre el riel en el orden deseado.</p>
+                    </div>
+                    <div class="mt-6 text-slate-400 font-mono text-[10px]">TIEMPO: ~3 MIN</div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-sky-600">PASO 04</span>
+                        <h3 class="font-bold text-aqualoop-petroleum text-base mt-2 mb-2">Acople consecutivo</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">Conectar las mangueras flexibles de interconexión entre cada módulo.</p>
+                    </div>
+                    <div class="mt-6 text-slate-400 font-mono text-[10px]">TIEMPO: ~4 MIN</div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="bg-sky-50 p-6 rounded-2xl border border-sky-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono font-bold text-sky-700">PASO 05</span>
+                        <h3 class="font-bold text-aqualoop-petroleum text-base mt-2 mb-2">Prueba de flujo</h3>
+                        <p class="text-xs text-slate-700 leading-relaxed">Abrir el suministro, verificar ausencia de fugas y calibrar el paso de conmutación.</p>
+                    </div>
+                    <div class="mt-6 text-sky-700 font-mono text-[10px] font-bold">LISTO PARA USAR</div>
+                </div>
+            </div>
+
+            <!-- Disclaimer Note required -->
+            <div class="mt-12 p-4 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-800 text-xs flex items-start gap-3 max-w-4xl mx-auto">
+                <i data-lucide="alert-circle" class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5"></i>
+                <p>
+                    <strong>Nota técnica sobre viabilidad industrial:</strong> La instalación hidráulica definitiva y las presiones dinámicas de operación deben ser validadas técnicamente bajo las normas locales correspondientes antes de la comercialización y producción en serie de este concepto de producto.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. SECCIÓN: ¿QUÉ PASA CON EL AGUA RECUPERADA? -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold tracking-widest text-sky-600 uppercase">Aprovechamiento Secundario</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-aqualoop-petroleum mt-2">Usos prácticos para el agua recuperada</h2>
+                <p class="text-slate-600 mt-4">El agua almacenada mantiene su calidad potable inicial y es ideal para tareas del hogar que no requieren agua del grifo recién extraída.</p>
+            </div>
+
+            <!-- Re-use Grid Icons -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Use 1 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center flex flex-col items-center hover:shadow-md transition-shadow">
+                    <div class="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+                        <i data-lucide="droplets" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-aqualoop-petroleum text-sm mb-1">Descarga de WC</h3>
+                    <p class="text-[11px] text-slate-500">Sustituye la descarga del tanque reutilizando 5 a 10 L por uso.</p>
+                </div>
+
+                <!-- Use 2 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center flex flex-col items-center hover:shadow-md transition-shadow">
+                    <div class="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+                        <i data-lucide="sparkles" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-aqualoop-petroleum text-sm mb-1">Limpieza de Pisos</h3>
+                    <p class="text-[11px] text-slate-500">Ideal para llenar cubetas de trapeado en interiores.</p>
+                </div>
+
+                <!-- Use 3 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center flex flex-col items-center hover:shadow-md transition-shadow">
+                    <div class="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+                        <i data-lucide="home" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-aqualoop-petroleum text-sm mb-1">Limpieza General</h3>
+                    <p class="text-[11px] text-slate-500">Aseo de ventanas, muebles de exterior y lavaderos.</p>
+                </div>
+
+                <!-- Use 4 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center flex flex-col items-center hover:shadow-md transition-shadow">
+                    <div class="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+                        <i data-lucide="flower-2" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-aqualoop-petroleum text-sm mb-1">Riego de Plantas</h3>
+                    <p class="text-[11px] text-slate-500">Agua sin jabón ni químicos, totalmente apta para jardines.</p>
+                </div>
+
+                <!-- Use 5 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center flex flex-col items-center hover:shadow-md transition-shadow">
+                    <div class="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+                        <i data-lucide="car" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-bold text-aqualoop-petroleum text-sm mb-1">Lavado Exterior</h3>
+                    <p class="text-[11px] text-slate-500">Limpieza de patios, herramientas o vehículos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. SECCIÓN: BENEFICIOS -->
+    <section id="beneficios" class="py-24 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold tracking-widest text-sky-600 uppercase">Propuesta de Valor</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-aqualoop-petroleum mt-2">Los cuatro pilares de AQUALOOP</h2>
+            </div>
+
+            <!-- 4 Big Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Card 1 -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-6">
+                    <div class="w-14 h-14 rounded-2xl bg-aqualoop-petroleum text-white flex items-center justify-center flex-shrink-0 font-bold text-xl">
+                        <i data-lucide="shield-check" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-aqualoop-petroleum mb-2">Recupera</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Evita de forma activa que agua potable y limpia termine directamente en el drenaje durante los minutos de espera previos a la ducha.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-6">
+                    <div class="w-14 h-14 rounded-2xl bg-aqualoop-petroleum text-white flex items-center justify-center flex-shrink-0 font-bold text-xl">
+                        <i data-lucide="box" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-aqualoop-petroleum mb-2">Almacena</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Convierte el agua recuperada en una pequeña reserva ordenada, estética e higiénica accesible directamente dentro del baño.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-6">
+                    <div class="w-14 h-14 rounded-2xl bg-aqualoop-petroleum text-white flex items-center justify-center flex-shrink-0 font-bold text-xl">
+                        <i data-lucide="footprints" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-aqualoop-petroleum mb-2">Transporta</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Los módulos individuales fraccionan el peso total en unidades de 5 kg, permitiendo mover el recurso sin derrames ni esfuerzos físicos excesivos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-6">
+                    <div class="w-14 h-14 rounded-2xl bg-aqualoop-petroleum text-white flex items-center justify-center flex-shrink-0 font-bold text-xl">
+                        <i data-lucide="sliders" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-aqualoop-petroleum mb-2">Adapta</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            La configuración modular permite ajustar la capacidad según la arquitectura del baño, el número de habitantes y el hábito de consumo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. SECCIÓN COMPARATIVA -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold tracking-widest text-sky-600 uppercase">Posicionamiento de Producto</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-aqualoop-petroleum mt-2">La alternativa intermedia que hacía falta</h2>
+                <p class="text-slate-600 mt-4">AQUALOOP se ubica en el punto de equilibrio entre el método manual rudimentario y las costosas instalaciones de aguas grises.</p>
+            </div>
+
+            <!-- 3 Column Comparison Table -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <!-- Option 1: Cubeta -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Método Tradicional</div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-6">Cubeta Convencional</h3>
+                        <ul class="space-y-4 text-xs text-slate-600">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Muy económica</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Sin instalación</li>
+                            <li class="flex items-center gap-2 text-slate-400"><i data-lucide="x" class="w-4 h-4 text-rose-400"></i> Recuperación manual e incómoda</li>
+                            <li class="flex items-center gap-2 text-slate-400"><i data-lucide="x" class="w-4 h-4 text-rose-400"></i> Difícil de transportar llena (10-15 kg)</li>
+                            <li class="flex items-center gap-2 text-slate-400"><i data-lucide="x" class="w-4 h-4 text-rose-400"></i> Estorba espacio útil en la ducha</li>
+                            <li class="flex items-center gap-2 text-slate-400"><i data-lucide="x" class="w-4 h-4 text-rose-400"></i> El agua se salpica con jabón</li>
+                        </ul>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-slate-100 text-center text-xs font-semibold text-slate-400">
+                        Bajo Costo / Baja Eficiencia
+                    </div>
+                </div>
+
+                <!-- Option 2: AQUALOOP (Highlighted) -->
+                <div class="bg-aqualoop-petroleum text-white p-8 rounded-2xl border-2 border-sky-400 flex flex-col justify-between shadow-xl relative transform md:-translate-y-2">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-sky-500 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-1 rounded-full shadow">
+                        Solución Optimizada
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold text-sky-300 uppercase tracking-wider mb-2">Diseño Industrial</div>
+                        <h3 class="text-2xl font-bold text-white mb-6">AQUALOOP</h3>
+                        <ul class="space-y-4 text-xs text-slate-200">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400"></i> Recuperación integrada al flujo</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400"></i> Configuración modular adaptable</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400"></i> Depósitos removibles de 5 L</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400"></i> Almacenamiento limpio y ordenado</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-sky-400"></i> Instalación rápida sin obra</li>
+                        </ul>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-slate-700 text-center text-xs font-bold text-sky-300">
+                        Equilibrio Perfecto de Diseño y Usabilidad
+                    </div>
+                </div>
+
+                <!-- Option 3: Sistema Aguas Grises -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Infraestructura Compleja</div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-6">Sistema de Aguas Grises</h3>
+                        <ul class="space-y-4 text-xs text-slate-600">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Gran capacidad de volumen</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Reutiliza múltiples fuentes</li>
+                            <li class="flex items-center gap-2 text-slate-400"><i data-lucide="x" class="w-4 h-4 text-rose-400"></i> Requiere romper muros y tuberías</li>
+                            <li class="flex items-center gap-2 text-slate-400"><i data-lucide="x" class="w-4 h-4 text-rose-400"></i> Alta inversión financiera inicial</li>
+                            <li class="flex items-center gap-2 text-slate-400"><i data-lucide="x" class="w-4 h-4 text-rose-400"></i> Mantenimiento y filtros costosos</li>
+                        </ul>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-slate-100 text-center text-xs font-semibold text-slate-400">
+                        Alto Costo / Alta Infraestructura
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. SECCIÓN DE IMPACTO -->
+    <section class="py-24 bg-white border-y border-slate-200 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-aqualoop-petroleum to-slate-900 rounded-3xl p-8 sm:p-14 text-white relative overflow-hidden shadow-2xl">
+                <!-- Background ambient circle -->
+                <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-3xl relative z-10 space-y-6">
+                    <span class="text-xs font-bold tracking-widest text-sky-400 uppercase">Manifiesto de Eficiencia</span>
+                    <h2 class="text-3xl sm:text-5xl font-bold leading-tight">
+                        “No se trata solamente de usar menos agua.<br/>
+                        <span class="text-sky-400">Se trata de aprovechar mejor la que ya tenemos.”</span>
+                    </h2>
+                    <p class="text-slate-300 text-base leading-relaxed">
+                        AQUALOOP fomenta la micro-economía circular dentro de la vivienda, transformando un hábito pasivo de desperdicio en un ciclo consciente de conservación.
+                    </p>
+
+                    <!-- Circular Economy Process Mockup -->
+                    <div class="pt-8 grid grid-cols-2 sm:grid-cols-5 gap-3 text-center border-t border-slate-800">
+                        <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700/80">
+                            <span class="block text-[10px] text-slate-400 font-mono">01</span>
+                            <span class="text-xs font-semibold text-slate-200">Suministro</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700/80">
+                            <span class="block text-[10px] text-slate-400 font-mono">02</span>
+                            <span class="text-xs font-semibold text-slate-200">Regadera</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-sky-950 border border-sky-600/50">
+                            <span class="block text-[10px] text-sky-400 font-mono">03</span>
+                            <span class="text-xs font-bold text-sky-300">Recuperación</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700/80">
+                            <span class="block text-[10px] text-slate-400 font-mono">04</span>
+                            <span class="text-xs font-semibold text-slate-200">Almacén</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700/80 col-span-2 sm:col-span-1">
+                            <span class="block text-[10px] text-slate-400 font-mono">05</span>
+                            <span class="text-xs font-semibold text-slate-200">Segundo Uso</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 14. FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-slate-800">
+                <!-- Brand Info -->
+                <div class="md:col-span-6 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-sky-500 text-white flex items-center justify-center font-bold text-lg">
+                            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>
+                            </svg>
+                        </div>
+                        <span class="font-title text-xl font-bold text-white tracking-wider">AQUALOOP</span>
+                    </div>
+                    <p class="text-sm text-slate-400 max-w-sm">
+                        Sistema modular de recuperación doméstica de agua. Proyecto de investigación y prototipado de diseño industrial.
+                    </p>
+                </div>
+
+                <!-- Footer Nav Links -->
+                <div class="md:col-span-3 space-y-3">
+                    <span class="text-xs font-bold text-slate-200 uppercase tracking-wider block">Proyecto</span>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#producto" class="hover:text-sky-400 transition-colors">Visión General</a></li>
+                        <li><a href="#funcionamiento" class="hover:text-sky-400 transition-colors">Funcionamiento</a></li>
+                        <li><a href="#componentes" class="hover:text-sky-400 transition-colors">Componentes Técnicos</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-3 space-y-3">
+                    <span class="text-xs font-bold text-slate-200 uppercase tracking-wider block">Especificaciones</span>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#materiales" class="hover:text-sky-400 transition-colors">Materiales e Ingeniería</a></li>
+                        <li><a href="#instalacion" class="hover:text-sky-400 transition-colors">Proceso de Instalación</a></li>
+                        <li><a href="#beneficios" class="hover:text-sky-400 transition-colors">Beneficios e Impacto</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Phrase -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>Diseñado para integrar el reúso de agua a la rutina cotidiana.</p>
+                <p>© 2026 AQUALOOP - Prototipo de Diseño Industrial. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lucide Icons Initialization Script -->
+    <script>
+        lucide.createIcons();
+
+        // Mobile menu toggle logic
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
